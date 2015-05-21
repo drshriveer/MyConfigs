@@ -40,3 +40,6 @@ function u {
     done
     ls
 }
+
+# faster edit:
+alias editbp='vi ~/.bash_profile && source ~/.bash_profile'
