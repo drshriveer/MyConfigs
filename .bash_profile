@@ -34,7 +34,6 @@ alias uuuuu="cd ../../../../.. && ls"
 
 # =============================== git alias
 
-alias cleanpush="realclean && bbc && bbr && git push"
 alias gc="git commit -u"
 alias gca="git commit --amend"
 alias gs="git log -n 1 && echo "-------------------" && git branch && echo "-------------------" && git status"
