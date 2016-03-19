@@ -1,45 +1,68 @@
-###########set up colors#############
+EDITOR="vim"
+alias vi="vim"
+alias ezbash='vim ~/.bash_profile && source ~/.bash_profile'
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -W'
+
+# =============================== colors
+# PS1=$'\e[0m\e[1;32m%n: \e[1;34m%~ \e[1;31m→ \e[0;31m'  # <- for zshrc 
+PS1=$'\e[0m\e[1;32m\u: \e[1;34m\w \e[1;31m→ \e[0;31m'
+PS2=$'\e[0m\e[1;33m → \e[0m'
+
+# reset to default terminal settings after input
+trap 'tput sgr0' DEBUG 
+
+# ls colors
 export CLICOLOR=1
-export LSCOLORS=GxFxCxDxBxegedabagaced
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
 
-function color_my_prompt {
-    local __user_and_host="\[\033[01;32m\]\u@\h"
-    local __cur_location="\[\033[01;34m\]\w"
-    local __git_branch_color="\[\033[31m\]"
-    #local __git_branch="\`ruby -e \"print (%x{git branch 2> /dev/null}.grep(/^\*/).first || '').gsub(/^\* (.+)$/, '(\1) ')\"\`"
-    local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
-    local __prompt_tail="\[\033[35m\]$"
-    local __last_color="\[\033[00m\]"
-    export PS1="$__user_and_host $__cur_location $__git_branch_color$__git_branch$__prompt_tail$__last_color "
+# ===============================  u's
+function u {
+    count=$1
+    if [ $# = 0 ]; then
+       count=1
+    fi
+    for ((i =0; i < count; i++)); do
+       cd ../
+    done
+    ls
 }
-
-color_my_prompt
-
-
-#git alias
-alias ga="git add --all ."
-alias gc="git commit -u"
-alias gs="git branch && git status"
-alias gd="git diff"
-alias gdm="git diff master"
-alias gco="git checkout"
-alias gcom="git checkout master"
-
-#the u's dude
 alias uu="cd ../.. && ls"
 alias uuu="cd ../../.. && ls"
 alias uuuu="cd ../../../.. && ls"
 alias uuuuu="cd ../../../../.. && ls"
-function u {
-    count=$1
-    if [ $# = 0 ]; then
-        count=1
+
+# =============================== git alias
+
+alias cleanpush="realclean && bbc && bbr && git push"
+alias gc="git commit -u"
+alias gca="git commit --amend"
+alias gs="git log -n 1 && echo "-------------------" && git branch && echo "-------------------" && git status"
+alias gd="git diff"
+alias gdh="git diff HEAD"
+alias gco="git checkout"
+
+function ga {
+    if [ $# -eq 0 ]; then
+        git add --all .
+    else
+        git add "$@"
     fi
-    for ((i = 0; i < count; i++)); do
-        cd ../
-    done
-    ls
 }
 
-# faster edit:
-alias editbp='vi ~/.bash_profile && source ~/.bash_profile'
+function gdm {
+    if [ "`git branch --list mainline`" ]; then
+        git diff mainline
+    else
+        git diff master
+    fi
+}
+
+function gcom {
+    if [ "`git branch --list mainline`" ]; then
+        git checkout mainline
+    else
+        git checkout master
+    fi
+}
+
