@@ -5,8 +5,8 @@ alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -W'
 
 # =============================== colors
 # PS1=$'\e[0m\e[1;32m%n: \e[1;34m%~ \e[1;31m→ \e[0;31m'  # <- for zshrc 
-PS1=$'\e[0m\e[1;32m\u: \e[1;34m\w \e[1;31m→ \e[0;31m'
-PS2=$'\e[0m\e[1;33m → \e[0m'
+PS1="\[\033[0m\]\[\033[1;32m\]\u: \[\033[1;34m\]\w \[\033[1;31m\]→ \[\033[0;31m\]"
+PS2="\[\033[0m\]\[\033[1;33m\] → \[\033[0m\]"
 
 # reset to default terminal settings after input
 trap 'tput sgr0' DEBUG 
