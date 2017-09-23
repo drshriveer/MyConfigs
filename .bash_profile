@@ -34,17 +34,11 @@ function print_blu() { echo -e "${BLU}$1${NC}"}
 function print_prp() { echo -e "${PRP}$1${NC}"}
 function print_cyn() { echo -e "${CYN}$1${NC}"}
 
-function print_err() {
-  echo -e "${RED_B}ERROR:${RED} $1${NC}"
-}
 
-function print_wrn() {
-  echo -e "${ORJ_B}WARN:${ORJ} $1${NC}"
-}
+function print_err() { echo -e "${RED_B}ERROR:${RED} $1${NC}" }
+function print_wrn() { echo -e "${ORJ_B}WARN:${ORJ} $1${NC}" }
+function print_info() { echo -e "${CYN_B}INFO:${CYN} $1${NC}" }
 
-function print_info() {
-  echo -e "${CYN_B}INFO:${CYN} $1${NC}"
-}
 # ===================================================== Prompt
 # for zshrc :
 # PROMPT=$'%{\e[0m\e[1;32m%}%n: %{\e[1;34m%}%~ %{\e[1;31m%}→ %{\e[0;31m%}' 
