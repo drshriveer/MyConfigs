@@ -21,23 +21,53 @@ PRP="\033[0;35m"
 CYN="\033[0;36m"
 NC="\033[0m"
 
-function print_red_b() { echo -e "${RED_B}$1${NC}"}
-function print_grn_b() { echo -e "${GRN_B}$1${NC}"}
-function print_orj_b() { echo -e "${ORJ_B}$1${NC}"}
-function print_blu_b() { echo -e "${BLU_B}$1${NC}"}
-function print_prp_b() { echo -e "${PRP_B}$1${NC}"}
-function print_cyn_b() { echo -e "${CYN_B}$1${NC}"}
-function print_red() { echo -e "${RED}$1${NC}"}
-function print_grn() { echo -e "${GRN}$1${NC}"}
-function print_orj() { echo -e "${ORJ}$1${NC}"}
-function print_blu() { echo -e "${BLU}$1${NC}"}
-function print_prp() { echo -e "${PRP}$1${NC}"}
-function print_cyn() { echo -e "${CYN}$1${NC}"}
+function print_red_b() {
+  echo -e "${RED_B}$1${NC}"
+}
+function print_grn_b() {
+  echo -e "${GRN_B}$1${NC}"
+}
+function print_orj_b() {
+  echo -e "${ORJ_B}$1${NC}"
+}
+function print_blu_b() {
+  echo -e "${BLU_B}$1${NC}"
+}
+function print_prp_b() {
+  echo -e "${PRP_B}$1${NC}"
+}
+function print_cyn_b() {
+  echo -e "${CYN_B}$1${NC}"
+}
+function print_red() {
+  echo -e "${RED}$1${NC}"
+}
+function print_grn() {
+  echo -e "${GRN}$1${NC}"
+}
+function print_orj() {
+  echo -e "${ORJ}$1${NC}"
+}
+function print_blu() {
+  echo -e "${BLU}$1${NC}"
+}
+function print_prp() {
+  echo -e "${PRP}$1${NC}"
+}
+function print_cyn() {
+  echo -e "${CYN}$1${NC}"
+}
 
-
-function print_err() { echo -e "${RED_B}ERROR:${RED} $1${NC}" }
-function print_wrn() { echo -e "${ORJ_B}WARN:${ORJ} $1${NC}" }
-function print_info() { echo -e "${CYN_B}INFO:${CYN} $1${NC}" }
+# print statements for custom functions
+function print_err() {
+  echo -e "${RED_B}ERROR:${RED} $1${NC}"
+}
+function print_wrn() {
+  echo -e "${ORJ_B}WARN:${ORJ} $1${NC}"
+}
+function print_info() {
+  echo -e "${CYN_B}INFO:${CYN} $1${NC}"
+}
 
 # ===================================================== Prompt
 # for zshrc :
