@@ -1,5 +1,14 @@
+# ===================================================== Environment
+# Editor
 EDITOR="vim"
 alias vi="vim"
+
+# ls
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+alias ls='ls -GFh'
+
+# shortcuts
 alias ezbash='vim ~/.bash_profile && source ~/.bash_profile'
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl -W'
 
@@ -77,14 +86,6 @@ function print_info() {
 PS1="\[${GRN_B}\]\u: \[${BLU_B}\]\w \[${RED_B}\]→ \[${RED}\]"
 PS2="\[${YLO_B}\] → \[${NC}\]"
 trap 'tput sgr0' DEBUG # reset to default terminal after input
-
-# reset to default terminal settings after input
-trap 'tput sgr0' DEBUG 
-
-# ls colors
-export CLICOLOR=1
-export LSCOLORS=ExFxBxDxCxegedabagacad
-alias ls='ls -GFh'
 
 # =====================================================  u's
 function u {
