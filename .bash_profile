@@ -105,6 +105,9 @@ alias uuuuu="cd ../../../../.. && ls"
 
 # ===================================================== git alias
 
+# completion source: https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+source ~/.git-completion.bash
+
 alias gc="git commit -u"
 alias gca="git commit --amend"
 alias gs="git log -n 1 && echo $BAR && git branch && echo $BAR && git status"
