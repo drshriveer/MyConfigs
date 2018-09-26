@@ -115,6 +115,13 @@ alias gd="git diff"
 alias gdh="git diff HEAD"
 alias gco="git checkout"
 
+function cr {
+  BRANCH=`git rev-parse --abbrev-ref HEAD`
+  REMOTE_ADDR=`git remote get-url origin`
+  git push origin $BRANCH
+  open $REMOTE_ADDR
+}
+
 function ga {
     if [ $# -eq 0 ]; then
         git add --all .
