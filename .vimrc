@@ -1,3 +1,4 @@
+# molokai theme: https://github.com/tomasr/molokai
 colorscheme molokai                                                                                                                                                                                                                      
 let g:rehash256 = 1
 syntax enable
