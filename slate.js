@@ -1,40 +1,41 @@
 slate.configAll({
   defaultToCurrentScreen: true,
+  nudgePercentOf: "screenSize",
 });
 
-const winSizeSequence = [ 2/3, 1/2, 1/3, 1/4 ];
-const nudgeAmounts    = [ 1/3, 1/2, 1/3, 1/4 ];
-const directions = {
+var winSizeSequence = [ 2/3, 1/2, 1/3, 1/4 ];
+var nudgeAmounts    = [ 1/3, 1/2, 1/3, 1/4 ];
+var directions = {
   any:  "any",
   up:    "up",
   down:  "down",
   left:  "left",
   right: "right",
 };
-const windowState = {};
-const tolerance = 2;
+var windowState = {};
+var tolerance = 2;
 
-const atTopEdge = function(win) {
-  const screen = slate.screen().visibleRect();
+function atTopEdge(win) {
+  var screen = slate.screen().visibleRect();
   return tolerance > Math.abs(screen.y - win.topLeft().y);
 };
-const atBottomEdge = function(win) {
-  const screen = slate.screen().visibleRect();
-  return tolerance > (screen.height - height - win.topLeft().y)
+function atBottomEdge(win) {
+  var screen = slate.screen().visibleRect();
+  return tolerance > (screen.height - win.size().height - win.topLeft().y)
 }
-const atBottomEdge = function(win) {
-  const screen = slate.screen().visibleRect();
-  return tolerance > (screen.height - height - win.topLeft().y)
+function atBottomEdge(win) {
+  var screen = slate.screen().visibleRect();
+  return tolerance > (screen.height - win.size().height - win.topLeft().y)
 }
-const atRightEdge = function(win) {
-  const screen = slate.screen().visibleRect();
-  return tolerance > (screen.width - width - win.topLeft().x)
+function atRightEdge(win) {
+  var screen = slate.screen().visibleRect();
+  return tolerance > (screen.width - win.size().width - win.topLeft().x)
 };
-const atLeftEdge = function(win) {
+function atLeftEdge(win) {
   return tolerance > win.topLeft().x
 };
-const getWindowState = function(win) {
-  const id = win.pid();
+function getWindowState(win) {
+  var id = win.pid();
   if (windowState[id] === undefined) {
     windowState[id] = {
       lastMove: directions.any,
@@ -53,8 +54,8 @@ slate.bind("esc:cmd", function(win) {
 // Fill Screen Window:
 _.each([directions.up, directions.down], (direction) => {
   slate.bind(direction +":ctrl;alt;cmd", function(win) {
-    const ws = getWindowState(win);
-    const screen = slate.screen().visibleRect();
+    var ws = getWindowState(win);
+    var screen = slate.screen().visibleRect();
 
     win.topLeft().y
     win.doOperation(slate.operation("move", {
@@ -80,16 +81,16 @@ _.each([directions.left, directions.right], (direction) => {
 });
 
 // Resizing & moving sides:
-const pushUp = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
-  const oldMove = ws.lastMove;
+function pushUp(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().rect();
+  var oldMove = ws.lastMove;
   ws.lastMove = directions.up;
 
   // determine if we should resize, and what to resize to:
   let width = win.size().width;
   let height = win.size().height;
-  const shouldResize = oldMove === directions.up || oldMove === directions.any || atTopEdge(win);
+  var shouldResize = oldMove === directions.up || oldMove === directions.any || atTopEdge(win);
   if (shouldResize) {
     if (ws.vertIter >= 3) {
       ws.vertIter = 0;
@@ -111,16 +112,16 @@ const pushUp = function(win) {
   }));
 };
 
-const pushDown = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
-  const oldMove = ws.lastMove;
+function pushDown(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().rect();
+  var oldMove = ws.lastMove;
   ws.lastMove = directions.down;
 
   // determine if we should resize, and what to resize to:
   let width = win.size().width;
   let height = win.size().height;
-  const shouldResize = oldMove === directions.down || oldMove === directions.any || atBottomEdge(win);
+  var shouldResize = oldMove === directions.down || oldMove === directions.any || atBottomEdge(win);
   if (shouldResize) {
     if (ws.vertIter >= 3) {
       ws.vertIter = 0;
@@ -142,16 +143,16 @@ const pushDown = function(win) {
   }));
 };
 
-const pushRight = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
-  const oldMove = ws.lastMove;
+function pushRight(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().rect();
+  var oldMove = ws.lastMove;
   ws.lastMove = directions.right;
 
   // determine if we should resize, and what to resize to:
   let width = win.size().width;
   let height = win.size().height;
-  const shouldResize = oldMove === directions.right || oldMove === directions.any || atRightEdge(win);
+  var shouldResize = oldMove === directions.right || oldMove === directions.any || atRightEdge(win);
   if (shouldResize) {
     if (ws.horizontalIter >= 4) {
       ws.horizontalIter = 0;
@@ -173,16 +174,16 @@ const pushRight = function(win) {
   }));
 };
 
-const pushLeft = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
-  const oldMove = ws.lastMove;
+function pushLeft(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().rect();
+  var oldMove = ws.lastMove;
   ws.lastMove = directions.left;
 
   // determine if we should resize, and what to resize to:
   let width = win.size().width;
   let height = win.size().height;
-  const shouldResize = oldMove === directions.left || oldMove === directions.any || atLeftEdge(win);
+  var shouldResize = oldMove === directions.left || oldMove === directions.any || atLeftEdge(win);
   if (shouldResize) {
     if (ws.horizontalIter >= 4) {
       ws.horizontalIter = 0;
@@ -204,12 +205,18 @@ const pushLeft = function(win) {
   }));
 }
 
-//--------
-// Nudge:
-//--------------------------------
-const nudgeUp = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
+function getNudgeFactor(iter, max) {
+  if (iter >= max) {
+    iter = 2;
+  } else {
+    iter--;
+  }
+  return nudgeAmounts[iter]
+}
+
+function nudgeUp(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().visibleRect();
 
   if (atTopEdge(win)) {
     return;
@@ -222,15 +229,15 @@ const nudgeUp = function(win) {
 
   win.doOperation(slate.operation("move", {
     x: win.topLeft().x,
-    y: win.topLeft().y - screen.width * nudgeAmounts(ws.vertIter),
+    y: win.topLeft().y - screen.height * getNudgeFactor(ws.vertIter, 3),
     width: win.size().width,
     height: win.size().height,
   }));
 };
 
-const nudgeDown = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
+function nudgeDown(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().visibleRect();
 
   if (atBottomEdge(win)) {
     return;
@@ -243,15 +250,15 @@ const nudgeDown = function(win) {
 
   win.doOperation(slate.operation("move", {
     x: win.topLeft().x,
-    y: win.topLeft().y + screen.width * nudgeAmounts(ws.vertIter),
+    y: win.topLeft().y + screen.height * getNudgeFactor(ws.vertIter, 3),
     width: win.size().width,
     height: win.size().height,
   }));
 };
 
-const nudgeLeft = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
+function nudgeLeft(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().visibleRect();
 
   if (atLeftEdge(win)) {
     return;
@@ -263,16 +270,16 @@ const nudgeLeft = function(win) {
   }
 
   win.doOperation(slate.operation("move", {
-    x: screen.x - screen.width * nudgeAmounts(ws.horizontalIter),
+    x: win.topLeft().x - screen.width * getNudgeFactor(ws.horizontalIter, 4),
     y: win.topLeft().y,
     width: win.size().width,
     height: win.size().height,
   }));
 };
 
-const nudgeRight = function(win) {
-  const ws = getWindowState(win);
-  const screen = slate.screen().visibleRect();
+function nudgeRight(win) {
+  var ws = getWindowState(win);
+  var screen = slate.screen().visibleRect();
 
   if (atRightEdge(win)) {
     return;
@@ -284,20 +291,28 @@ const nudgeRight = function(win) {
   }
 
   win.doOperation(slate.operation("move", {
-    x: screen.x + screen.width * nudgeAmounts(ws.horizontalIter),
+    x: win.topLeft().x + screen.width * getNudgeFactor(ws.horizontalIter, 4),
     y: win.topLeft().y,
     width: win.size().width,
     height: win.size().height,
   }));
 };
 
+function safeHandler(handler) {
+  return function(win) {
+    if (win == null) {
+      return;
+    }
+    handler(win);
+  }
+}
 
-slate.bind("up:alt;cmd", nudgeUp);
-slate.bind("down:alt;cmd", nudgeDown);
-slate.bind("left:alt;cmd", nudgeLeft);
-slate.bind("right:alt;cmd", nudgeRight);
+slate.bind("up:alt;cmd", safeHandler(nudgeUp));
+slate.bind("down:alt;cmd", safeHandler(nudgeDown));
+slate.bind("left:alt;cmd", safeHandler(nudgeLeft));
+slate.bind("right:alt;cmd", safeHandler(nudgeRight));
 
-slate.bind("up:ctrl;alt", pushUp);
-slate.bind("down:ctrl;alt", pushDown);
-slate.bind("left:ctrl;alt", pushLeft);
-slate.bind("right:ctrl;alt", pushRight);
+slate.bind("up:ctrl;alt", safeHandler(pushUp));
+slate.bind("down:ctrl;alt", safeHandler(pushDown));
+slate.bind("left:ctrl;alt", safeHandler(pushLeft));
+slate.bind("right:ctrl;alt", safeHandler(pushRight));
