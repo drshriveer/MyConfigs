@@ -1,3 +1,5 @@
 # MyConfigs
 
-Yep, My configs.
+```sh
+$ ./install
+```
