@@ -9,7 +9,7 @@ brew update
 brew bundle install
 
 # Copy over files:
-cp zshrc ~/.zshrc
+cp .zshrc ~/.zshrc
 source  ~/.zshrc
 
 # vim:
