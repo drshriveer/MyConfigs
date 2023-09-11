@@ -46,3 +46,4 @@ mas "AdBlock Pro", id: 1018301773
 mas "1Blocker", id: 1365531024
 mas "Slack", id: 803453959
 mas "Magnet", id: 441258766
+mas "Tailscale", id: 1475387142
