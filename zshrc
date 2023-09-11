@@ -1,4 +1,5 @@
 # ===================================================== Environment
+export PATH=$PATH:/opt/homebrew/bin
 
 # ls
 export CLICOLOR=1

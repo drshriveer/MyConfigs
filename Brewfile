@@ -13,7 +13,13 @@ brew "rustup"
 brew "protobuf@3"
 brew "protoc-gen-go"
 brew "protoc-gen-go-grpc"
+
+# Editors
 cask "visual-studio-code"
+cask "goland"
+
+# Apps:
+cask "vivaldi"
 
 # Cloud
 brew "awscli"
@@ -25,7 +31,6 @@ vscode "dbaeumer.vscode-eslint"
 vscode "Orta.vscode-jest"
 vscode "gamunu.vscode-yarn"
 vscode "esbenp.prettier-vscode"
-
 
 vscode "golang.go"
 vscode "maximetinu.identical-sublime-monokai-csharp-theme-colorizer"

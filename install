@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# xcode cli tools
+xcode-select --install
+
+# Install brew:
+which brew || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew update
+brew bundle install
+
+# Copy over files:
+cp zshrc ~/.zshrc
+source  ~/.zshrc
+
+# vim:
+cp .vimrc ~/.vimrc
+mkdir -p ~/.vim/colors/
+curl -o ~/.vim/colors https://raw.githubusercontent.com/tomasr/molokai/master/colors/molokai.vim
+
+# github:
+gh auth login
+mkdir -p ~/.ssh
+cp ssh/config ~/.ssh/config
+ssh-add --apple-use-keychain ~/.ssh/id_ed25519

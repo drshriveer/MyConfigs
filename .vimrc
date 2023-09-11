@@ -1,5 +1,6 @@
 " molokai theme: https://github.com/tomasr/molokai
-colorscheme molokai                                                                                                                                                                                                                      
+colorscheme molokai
+let g:molokai_original = 1
 let g:rehash256 = 1
 syntax enable
 
