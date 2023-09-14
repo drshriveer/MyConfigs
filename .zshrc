@@ -1,11 +1,14 @@
 # ===================================================== Environment
 export PATH=$PATH:/opt/homebrew/bin
 
+# aliases
+alias j='just'
+alias ezshrc='vim ~/.zshrc && source ~/.zshrc'
+
 # ls
 export CLICOLOR=1
 export LSCOLORS=ExFxBxDxCxegedabagacad
 alias ls='ls -GFh'
-alias ezshrc='vim ~/.zshrc && source ~/.zshrc'
 
 # ===================================================== Constants
 BAR="--------------------------------------------------"
@@ -96,12 +99,12 @@ alias uuuuu="cd ../../../../.. && ls"
 
 # ===================================================== git alias
 
-# completion source: https://github.com/git/git/blob/master/contrib/completion/git-completion.zsh
-#source ~/.git-completion.zsh
+# git auto complete:
+autoload -Uz compinit && compinit
 
 alias gc="git commit -u"
 alias gca="git commit --amend"
-alias gs="git log -n 1 && echo $BAR && git branch && echo $BAR && git status"
+alias gs="git log -n 1 && echo $BAR && git branch --sort=-committerdate && echo $BAR && git status"
 alias gd="git diff"
 alias gdh="git diff HEAD"
 alias gco="git checkout"
